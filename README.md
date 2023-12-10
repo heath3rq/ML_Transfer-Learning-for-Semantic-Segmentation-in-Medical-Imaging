@@ -13,13 +13,7 @@
 
         *Note: If encountering issues with `conda activate`, try running `conda init bash` in the terminal and then restart the terminal.*
 
-   + **Step 2:** Install PyTorch on GPU platforms:
-
-        ```
-        conda install pytorch==1.12.0 torchvision==0.13.0 torchaudio==0.12.0 cudatoolkit=11.3 -c pytorch
-        ```
-
-   + **Step 3:** Run all cells in the [1_setup.ipynb](1_setup.ipynb) notebook.
+   + **Step 2:** Run all cells in the [1_setup.ipynb](1_setup.ipynb) notebook.
 
 
 **2. Data Preprocess**

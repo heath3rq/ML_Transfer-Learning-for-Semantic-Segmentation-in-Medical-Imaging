@@ -8,3 +8,4 @@ tqdm
 torchsummary
 nltk
 scikit-learn
+ftfy
