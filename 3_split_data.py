@@ -33,6 +33,6 @@ def split_images(source_folder, train_fp, val_fp, split_ratio=0.8, seed=None):
 
 # Example usage:
 source_folder = '/workspaces/ECE661GroupProject_TransferLearning/data/image_png'
-train_fp = '/workspaces/ECE661GroupProject_TransferLearning/splits/train.txt'
-val_fp = '/workspaces/ECE661GroupProject_TransferLearning/splits/val.txt'
+train_fp = '/workspaces/ECE661GroupProject_TransferLearning/data/splits/train.txt'
+val_fp = '/workspaces/ECE661GroupProject_TransferLearning/data/splits/val.txt'
 split_images(source_folder, train_fp, val_fp, split_ratio=0.8, seed=42)
