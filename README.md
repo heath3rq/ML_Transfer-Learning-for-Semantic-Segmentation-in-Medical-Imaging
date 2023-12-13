@@ -13,13 +13,19 @@
 
         *Note: If encountering issues with `conda activate`, try running `conda init bash` in the terminal and then restart the terminal.*
 
-   + **Step 2:** Run all cells in the [1_setup.ipynb](1_setup.ipynb) notebook.
+   + **Step 2:** Run all cells in the [1_setup.ipynb](1_setup.ipynb).
 
 
 **2. Data Preprocess**
 
    + **Step 1:** Download [DME data](https://www.kaggle.com/code/atrichatterjee7/unet-imagesegmentation/input) from Kaggle
 
-   + **Step 2:** 
+   + **Step 2:** Run [2_data_preprocess.ipynb](2_data_preprocess.ipynb) to convert `.mat` format data to `.png`. If you need the image to be a specific size, complete the TO-DO item in the notebook.  
 
-   + **Step 3:** 
+   + **Step 3:** Run [3_split_data.py](3_split_data.py) to split data into train and test sets. 
+
+**3. Training**
+
+   + **Step 1:** Run [4_modeling.ipynb](4_modeling.ipynb) to try different pre-trained models. 
+
+   + **Step 2:**   
