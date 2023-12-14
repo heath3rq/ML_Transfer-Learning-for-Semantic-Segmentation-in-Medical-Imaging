@@ -21,12 +21,11 @@ def train_model(
     config_py_path: str,
     pth_path: str,
     verbose: bool = False,
+    dataset_num: int = 1,
 ) -> None:
     root = data_root
     img_dir = img_dir
     ann_dir = fluid_dir
-
-    # classes = ("image", "fluid")
 
     if verbose:
         print(
@@ -35,16 +34,6 @@ GPU In-Use: {torch.cuda.is_available()}"""
         )
         assert torch.cuda.is_available() == True, "GPU not available"
         print(f"MMSegmentation Version:{mmseg.__version__}")
-
-    # @DATASETS.register_module()
-    # class BOE_Chiu_Dataset(BaseSegDataset):
-    #     METAINFO = dict(classes=classes)
-
-    #     def __init__(self, dataset=None, times=None, **kwargs):
-    #         if 'BOE_Chiu_Dataset' not in DATASETS.module_dict:
-    #             super(BOE_Chiu_Dataset, self).__init__(
-    #                 img_suffix=".png", seg_map_suffix=".png", **kwargs
-    # )
 
     cfg = mmengine.Config.fromfile(f"{config_py_path}")
 
@@ -88,13 +77,25 @@ GPU In-Use: {torch.cuda.is_available()}"""
         dict(type="PackSegInputs"),
     ]
 
-    cfg.train_dataloader.dataset.type = cfg.dataset_type
-    cfg.train_dataloader.dataset.data_root = cfg.data_root
-    cfg.train_dataloader.dataset.data_prefix = dict(
-        img_path=img_dir, seg_map_path=ann_dir
-    )
-    cfg.train_dataloader.dataset.pipeline = cfg.train_pipeline
-    cfg.train_dataloader.dataset.ann_file = "splits/train.txt"
+    if dataset_num > 1:
+        for item in cfg.train_dataloader.dataset['datasets']:
+            item['type'] = cfg.dataset_type
+            item['data_root'] = cfg.data_root
+            item['data_prefix'] = dict(
+                img_path=img_dir, seg_map_path=ann_dir
+            )
+            item['pipeline'] = cfg.train_pipeline
+            item['ann_file'] = "splits/train.txt"
+    elif dataset_num == 1:
+        cfg.train_dataloader.dataset.type = cfg.dataset_type
+        cfg.train_dataloader.dataset.data_root = cfg.data_root
+        cfg.train_dataloader.dataset.data_prefix = dict(
+            img_path=img_dir, seg_map_path=ann_dir
+        )
+        cfg.train_dataloader.dataset.pipeline = cfg.train_pipeline
+        cfg.train_dataloader.dataset.ann_file = "splits/train.txt"
+    else: 
+        raise ValueError("Check the Number of Datasets under train_dataloader.dataset in the Config File. ")
 
     cfg.val_dataloader.dataset.type = cfg.dataset_type
     cfg.val_dataloader.dataset.data_root = cfg.data_root
@@ -105,7 +106,11 @@ GPU In-Use: {torch.cuda.is_available()}"""
     cfg.val_dataloader.dataset.ann_file = "splits/val.txt"
 
     cfg.test_dataloader = cfg.val_dataloader
+
+    # Define Evaluator
+    cfg.test_evaluator = ['mDice', 'mIoU', 'mFscore']
     cfg.val_evaluator.iou_metrics = ['mDice', 'mIoU', 'mFscore']
+
     # We can still use the pre-trained Mask RCNN model though we do not need to
     # use the mask branch
     cfg.load_from = f"{pth_path}"
