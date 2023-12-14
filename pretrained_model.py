@@ -78,14 +78,12 @@ GPU In-Use: {torch.cuda.is_available()}"""
     ]
 
     if dataset_num > 1:
-        for item in cfg.train_dataloader.dataset['datasets']:
-            item['type'] = cfg.dataset_type
-            item['data_root'] = cfg.data_root
-            item['data_prefix'] = dict(
-                img_path=img_dir, seg_map_path=ann_dir
-            )
-            item['pipeline'] = cfg.train_pipeline
-            item['ann_file'] = "splits/train.txt"
+        for item in cfg.train_dataloader.dataset["datasets"]:
+            item["type"] = cfg.dataset_type
+            item["data_root"] = cfg.data_root
+            item["data_prefix"] = dict(img_path=img_dir, seg_map_path=ann_dir)
+            item["pipeline"] = cfg.train_pipeline
+            item["ann_file"] = "splits/train.txt"
     elif dataset_num == 1:
         cfg.train_dataloader.dataset.type = cfg.dataset_type
         cfg.train_dataloader.dataset.data_root = cfg.data_root
@@ -94,8 +92,10 @@ GPU In-Use: {torch.cuda.is_available()}"""
         )
         cfg.train_dataloader.dataset.pipeline = cfg.train_pipeline
         cfg.train_dataloader.dataset.ann_file = "splits/train.txt"
-    else: 
-        raise ValueError("Check the Number of Datasets under train_dataloader.dataset in the Config File. ")
+    else:
+        raise ValueError(
+            "Check the Number of Datasets under train_dataloader.dataset in the Config File. "
+        )
 
     cfg.val_dataloader.dataset.type = cfg.dataset_type
     cfg.val_dataloader.dataset.data_root = cfg.data_root
@@ -108,8 +108,8 @@ GPU In-Use: {torch.cuda.is_available()}"""
     cfg.test_dataloader = cfg.val_dataloader
 
     # Define Evaluator
-    cfg.test_evaluator = ['mDice', 'mIoU', 'mFscore']
-    cfg.val_evaluator.iou_metrics = ['mDice', 'mIoU', 'mFscore']
+    cfg.test_evaluator = ["mDice", "mIoU", "mFscore"]
+    cfg.val_evaluator.iou_metrics = ["mDice", "mIoU", "mFscore"]
 
     # We can still use the pre-trained Mask RCNN model though we do not need to
     # use the mask branch
