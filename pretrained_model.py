@@ -60,6 +60,14 @@ GPU In-Use: {torch.cuda.is_available()}"""
     # cfg.model.decode_head.out_channels=1
     # cfg.model.auxiliary_head.out_channels=1
 
+    # cfg.model.decode_head.loss_decode=dict(
+    #     type="CrossEntropyLoss", use_sigmoid=True, loss_weight=1.0
+    # )
+
+    # cfg.model.auxiliary_head.loss_decode=dict(
+    #     type="CrossEntropyLoss", use_sigmoid=True, loss_weight=0.4
+    # )
+
     # Modify dataset type and path
     cfg.dataset_type = "BOE_Chiu_Dataset"
     cfg.data_root = root
@@ -97,6 +105,7 @@ GPU In-Use: {torch.cuda.is_available()}"""
     cfg.val_dataloader.dataset.ann_file = "splits/val.txt"
 
     cfg.test_dataloader = cfg.val_dataloader
+    cfg.val_evaluator.iou_metrics = ['mDice', 'mIoU', 'mFscore']
     # We can still use the pre-trained Mask RCNN model though we do not need to
     # use the mask branch
     cfg.load_from = f"{pth_path}"
@@ -110,7 +119,7 @@ GPU In-Use: {torch.cuda.is_available()}"""
     cfg.default_hooks.checkpoint.interval = 200
 
     # Set seed to facitate reproducing the result
-    cfg["randomness"] = dict(seed=0)
+    cfg.randomness = dict(seed=0)
 
     # Let's have a look at the final config used for training
     if verbose:

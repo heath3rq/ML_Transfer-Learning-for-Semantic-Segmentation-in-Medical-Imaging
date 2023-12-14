@@ -24,8 +24,11 @@
 
    + **Step 3:** Run [3_split_data.py](3_split_data.py) to split data into train and test sets. 
 
+
 **3. Training**
 
-   + **Step 1:** Run [4_modeling.ipynb](4_modeling.ipynb) to try different pre-trained models. 
+   + **Step 1:** Run [4_inference.ipynb](4_inference.ipynb) to make inference using different pre-trained models. 
 
-   + **Step 2:**   
+   + **Step 2:** Run [5_modeling.ipynb](5_modeling.ipynb) to re-train the six top-performing pre-trained models identified in the previous step on the DME dataset. 
+
+   + **Step 3:** Run [6_finetuning.ipynb](6_finetuning.ipynb) to fine-tune the top-performing model identified in the previous step. 
