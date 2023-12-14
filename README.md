@@ -25,7 +25,7 @@
    + **Step 3:** Run [3_split_data.py](3_split_data.py) to split data into train and test sets. 
 
 
-**3. Training**
+**3. Inference & Fine-tuning**
 
    + **Step 1:** Run [4_inference.ipynb](4_inference.ipynb) to make inference using different pre-trained models. 
 

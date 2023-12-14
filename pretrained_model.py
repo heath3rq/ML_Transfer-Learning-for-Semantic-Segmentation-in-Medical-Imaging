@@ -46,17 +46,6 @@ GPU In-Use: {torch.cuda.is_available()}"""
     cfg.model.decode_head.num_classes = 2
     cfg.model.auxiliary_head.num_classes = 2
 
-    # cfg.model.decode_head.out_channels=1
-    # cfg.model.auxiliary_head.out_channels=1
-
-    # cfg.model.decode_head.loss_decode=dict(
-    #     type="CrossEntropyLoss", use_sigmoid=True, loss_weight=1.0
-    # )
-
-    # cfg.model.auxiliary_head.loss_decode=dict(
-    #     type="CrossEntropyLoss", use_sigmoid=True, loss_weight=0.4
-    # )
-
     # Modify dataset type and path
     cfg.dataset_type = "BOE_Chiu_Dataset"
     cfg.data_root = root
