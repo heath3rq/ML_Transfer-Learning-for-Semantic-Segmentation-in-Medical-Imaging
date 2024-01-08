@@ -53,6 +53,6 @@ These changes, tailored to pre-trained UNet models, addressed compatibility conc
 | UNet with FCN [crop size: 320*320, 200 iters, dice loss] | 77.63 | 78.74 | 68.90 | 77.63 |
 | UNet with DeepLabV3 [crop size: 320*320, 200 iters, dice loss] | 79.38 | 77.44 | 70.64 | 79.38 |
 
-* m[MetricName] represents the average of all classes
+*m[MetricName] represents the average of all classes*
 
 The final model included a UNet backbone with DeepLabV3 heads, images cropped to (320x320), and trained over 200 iterations with dice loss. UNet was originally introduced for medical semantic segmentation and is trained on thousands of labeled data samples, specifically retinal images. It implements a decoder-encoder network that can extract general information features the deeper in the network it traverses. It also included skip connections which reintroduced detailed features back into the decoder rather than forgetting that information throughout the layers to segment properly. From the visualized examples in Section \ref{inference}, very few pixels are fluid so as much information must be retained from each layer. Although the other models we tried had higher performance during inference, they were likely predicting all pixels as backgrounds rather than distinguishing the fluid. With initial fine-tuning with all the models, we uncovered that UNet was able to transfer knowledge from its pre-trained weights effectively as it was trained on medical images, and appropriately differentiated fluid from the background. 
